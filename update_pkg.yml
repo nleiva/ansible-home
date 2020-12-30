@@ -1,0 +1,12 @@
+# ansible-playbook update_pkg.yml --ask-become-pass -v
+
+- name: Upgrade packages
+  hosts: lab
+  gather_facts: yes
+
+  tasks:
+    - name: Package update
+      package:
+        name: '*'
+        state: latest
+      become: yes
