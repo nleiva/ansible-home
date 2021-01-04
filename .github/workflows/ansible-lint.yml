@@ -17,5 +17,8 @@ jobs:
       uses: ansible/ansible-lint-action@master
       with:
         targets: "*.yml"
-        # Avoid annoying 'Package installs should not use latest'
-        args: "-x 403"
+        # Avoid annoying
+        #  - 'Commands should not change things if nothing needs doing' [301]
+        #  - 'Git checkouts must contain explicit version' [401]
+        #  - 'Package installs should not use latest' [403]
+        args: "-x 301,401,403"

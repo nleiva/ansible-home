@@ -7,7 +7,7 @@
   pre_tasks:
     - name: Starting debug message
       debug:
-        msg: "It will start working on {{ inventory_hostname }}:{{ ansible_host}}"
+        msg: "It will start working on {{ inventory_hostname }}:{{ ansible_host }}"
 
   roles:
     - update_pkgs
@@ -17,4 +17,4 @@
   tasks:
     - name: Finishing debug message
       debug:
-        msg: "{{ inventory_hostname }}:{{ ansible_host}} is ready"
+        msg: "{{ inventory_hostname }}:{{ ansible_host }} is ready"
