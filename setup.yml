@@ -1,0 +1,16 @@
+# ansible-playbook setup.yml --ask-become-pass -v
+
+- name: Setup Lab machines
+  hosts: lab
+  become: true
+  gather_facts: yes
+
+  tasks:
+    - name: Package update
+      package:
+        name: '*'
+        state: latest
+
+    - name: Install base packages
+      include_role:
+        name: install_pkgs

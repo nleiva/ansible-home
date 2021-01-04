@@ -1,0 +1,5 @@
+- name: Install Base software
+  include_tasks: "install_base.yml"
+
+# - name: Configure instance based based on its Linux distribution
+#   include_tasks: "{{ ansible_os_family }}.yml"

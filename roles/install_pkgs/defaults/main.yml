@@ -1,0 +1,7 @@
+---
+
+base_software:
+- git
+- wget
+- tree
+- bind-utils

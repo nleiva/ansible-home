@@ -1,0 +1,8 @@
+- name: Install base packages
+  package:
+    name: "{{ base_software }}"
+    state: present
+  register: package_check
+  until: package_check is not failed
+  retries: 4
+  delay: 5

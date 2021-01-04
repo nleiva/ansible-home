@@ -7,5 +7,5 @@ These are the playbooks I run in my personal lab.
 ## Update software packages
 
 ```bash
-ansible-playbook update_pkg.yml --ask-become-pass -v
+ansible-playbook setup.yml --ask-become-pass -v
 ```
