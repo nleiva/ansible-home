@@ -2,7 +2,6 @@
   package:
     name: "{{ base_software }}"
     state: present
-  become: true
   register: package_check
   until: package_check is not failed
   retries: 4

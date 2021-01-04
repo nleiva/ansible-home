@@ -1,0 +1,15 @@
+- name: Test reachability to {{ ip_list }}
+  uri:
+    url: "{{ ip_list }}"
+    follow_redirects: none
+    method: GET
+  register: result
+  until: result.status == 200
+  retries: 4
+  delay: 5
+
+- name: Display reachability info
+  debug:
+    msg:
+      - "Public IP address: {{ result.json.ip }}"
+      - "From {{ result.json.asn.name }} (ASN {{ result.json.asn.code }}) in {{ result.json.countrycode }}"

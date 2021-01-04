@@ -1,0 +1,4 @@
+---
+# From Galaxy
+- src: geerlingguy.repo-epel
+  name: repo-epel

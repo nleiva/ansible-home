@@ -4,7 +4,13 @@
 
 These are the playbooks I run in my personal lab.
 
-## Update software packages
+## Dependencies
+
+```bash
+ansible-galaxy role install -r roles/requirements.yml
+```
+
+## Setup lab instances
 
 ```bash
 ansible-playbook setup.yml --ask-become-pass -v
