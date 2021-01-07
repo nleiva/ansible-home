@@ -6,7 +6,7 @@ on: [push, pull_request]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     # Important: This sets up your GITHUB_WORKSPACE environment variable
@@ -18,7 +18,8 @@ jobs:
       with:
         targets: "*.yml"
         # Avoid annoying
+        #  - 'File permissions unset or incorrect' [E208]
         #  - 'Commands should not change things if nothing needs doing' [301]
         #  - 'Git checkouts must contain explicit version' [401]
         #  - 'Package installs should not use latest' [403]
-        args: "-x 301,401,403"
+        args: "-x 208,301,401,403"
