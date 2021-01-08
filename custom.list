@@ -1,0 +1,5 @@
+#  My Pi-hole local DNS records
+#  cat /etc/pihole/custom.list
+172.16.199.178 host2.lab.home
+172.16.199.200 host1.lab.home
+172.16.199.171 pi1.lab.home
