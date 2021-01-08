@@ -1,7 +1,13 @@
 ---
-
+# ansible_distribution_file_variety
 base_software:
-- git
-- wget
-- tree
-- bind-utils
+  Debian:
+    - git
+    - wget
+    - tree
+    - dnsutils
+  RedHat:
+    - git
+    - wget
+    - tree
+    - bind-utils

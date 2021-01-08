@@ -1,6 +1,6 @@
 - name: Install base packages
   package:
-    name: "{{ base_software }}"
+    name: "{{ base_software[ansible_distribution_file_variety] }}"
     state: present
   register: package_check
   until: package_check is not failed
