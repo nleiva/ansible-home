@@ -4,6 +4,10 @@
 
 These are the playbooks I run in my personal lab.
 
+## Requirements
+
+` ssh-copy-id` every host before running these playbooks. 
+
 ## Setup Lab instances
 
 ```bash
