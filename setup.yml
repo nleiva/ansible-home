@@ -15,11 +15,18 @@
     - role: repo-epel
       become: yes
       when: ansible_facts['distribution'] in ['CentOS', 'RedHat']
+    - role: repo_backports
+      become: yes
+      when: ansible_facts['distribution'] in ['Debian']
     - role: install_pkgs
       become: yes
     - role: basic_settings
       become: yes
+    - role: custom_facts
+      become: yes
     - role: dot_files
+    - role: firewall_rules
+      become: yes
     - role: test_internet
 
   tasks:

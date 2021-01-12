@@ -1,13 +1,16 @@
 ---
+# Common to all distros
+common_software:
+  - git
+  - wget
+  - tree
+  - firewalld
+
 # ansible_distribution_file_variety
 base_software:
   Debian:
-    - git
-    - wget
-    - tree
     - dnsutils
+    - vim-gui-common
+    - vim-runtime
   RedHat:
-    - git
-    - wget
-    - tree
     - bind-utils

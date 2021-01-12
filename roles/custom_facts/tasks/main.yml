@@ -1,0 +1,33 @@
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_vars_facts.html#adding-custom-facts
+- name: Create directory for ansible custom facts
+  file:
+    state: directory
+    recurse: yes
+    path: /etc/ansible/facts.d
+    mode: 0755
+
+- name: Ensure ansible custom facts file exists
+  copy:
+    content: "[main]"
+    dest: /etc/ansible/facts.d/app.fact
+    force: no
+    mode: 0644
+
+- name: Add cockpit to custom installed apps
+  lineinfile:
+    path: /etc/ansible/facts.d/app.fact
+    regexp: '^cockpit='
+    line: 'cockpit=true'
+    state: present
+    mode: '0644'
+    #create: yes
+
+- name: Re-read facts after adding custom fact
+  setup:
+    filter: ansible_local
+
+# To check an app ->
+# - name: Print DNS
+#   debug:
+#     msg: "DNS was found"
+#   when: ansible_local['app']['main']['dns'] is defined

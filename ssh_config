@@ -1,0 +1,5 @@
+# ~/.ssh/config
+Host host1.lab.home
+  GSSAPIAuthentication no
+Host host2.lab.home
+  GSSAPIAuthentication no
