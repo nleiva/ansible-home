@@ -14,13 +14,13 @@
         domain: lab.home
         ansible_become: yes
       tags: always
- 
+
     - name: Update Firewall rules
-      include_role: 
+      include_role:
         name: firewall_rules
       vars:
         ansible_become: yes
- 
+
     - name: Finishing debug message
       debug:
         msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"
