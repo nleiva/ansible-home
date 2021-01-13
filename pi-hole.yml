@@ -1,7 +1,7 @@
 # ansible-playbook pi-hole.yml --ask-become-pass -v
 
-- name: Run Pi-hole on a Container
-  hosts: host
+- name: Install Pi-hole
+  hosts: pi3*
   gather_facts: yes
 
   pre_tasks:
@@ -11,6 +11,11 @@
 
   roles:
     - role: pi_hole
+      become: yes
+      vars:
+        mode: hw
+        domain: lab.home
+    - role: firewall_rules
       become: yes
 
   tasks:
