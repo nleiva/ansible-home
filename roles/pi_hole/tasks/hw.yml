@@ -62,3 +62,16 @@
   until: pihole_output is not failed
   retries: 1
   delay: 5
+
+- name: Clone whitelist repo
+  git:
+    repo: https://github.com/anudeepND/whitelist.git
+    dest: /tmp/whitelist
+    force: yes
+  tags: whitelist
+
+- name: Add commonly white listed websites
+  command: python3 /tmp/whitelist/scripts/whitelist.py
+  tags: whitelist
+
+

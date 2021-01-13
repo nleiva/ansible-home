@@ -1,24 +1,26 @@
 # ansible-playbook pi-hole.yml --ask-become-pass -v
+# Update whilelist rules:  ansible-playbook pi-hole.yml --ask-become-pass -v --tags whitelist
 
 - name: Install Pi-hole
   hosts: pi3*
   gather_facts: yes
 
-  pre_tasks:
-    - name: Starting debug message
-      debug:
-        msg: "It will start working on {{ inventory_hostname }}:{{ ansible_host }}"
-
-  roles:
-    - role: pi_hole
-      become: yes
+  tasks:
+    - name: Run Pi-hole installer
+      include_role:
+        name: pi_hole
       vars:
         mode: hw
         domain: lab.home
-    - role: firewall_rules
-      become: yes
-
-  tasks:
+        ansible_become: yes
+      tags: always
+ 
+    - name: Update Firewall rules
+      include_role: 
+        name: firewall_rules
+      vars:
+        ansible_become: yes
+ 
     - name: Finishing debug message
       debug:
         msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"
