@@ -6,11 +6,13 @@ These are the playbooks I run in my personal lab.
 
 ## Requirements
 
-` ssh-copy-id` every host before running these playbooks. 
+` ssh-copy-id` to every host before running these playbooks. 
 
 ## Playbooks
 
-### Setup Lab instances
+### 1. Setup Lab instances
+
+To perform some basic management tasks such as upgrading packages or updating Firewall rules:
 
 ```bash
 ansible-playbook setup.yml --ask-become-pass -v
@@ -22,8 +24,18 @@ ansible-playbook setup.yml --ask-become-pass -v
 ansible-galaxy role install -r roles/requirements.yml
 ```
 
-### Install Pi-hole
+### 2. Install Pi-hole
+
+To install Pi-hole:
 
 ```bash
 ansible-playbook pi-hole.yml --ask-become-pass -v
 ```
+
+To update the list of whitelisted websites per [WHITELIST](https://github.com/anudeepND/whitelist):
+
+```bash
+ansible-playbook pi-hole.yml --ask-become-pass -v --tags whitelist
+```
+
+[Block lists](https://firebog.net/) can be added via the [GUI](https://docs.pi-hole.net/database/gravity/example/).

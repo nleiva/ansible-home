@@ -22,7 +22,7 @@
     src: custom.list.j2
     dest: /etc/pihole/custom.list
     mode: 0644
-    force: yes
+    force: no
 
 - name: Create directory for ansible custom facts
   file:
