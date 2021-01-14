@@ -4,6 +4,11 @@
 
 These are the playbooks I run in my personal lab.
 
+<p align="center">
+  <img width="302" height="403" title="My Home Lab" src="static/home-lab.jpeg"><br>
+  <b>Ansible Links</b><br>
+</p>
+
 ## Requirements
 
 ` ssh-copy-id` to every host before running these playbooks. 
