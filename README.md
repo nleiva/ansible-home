@@ -5,8 +5,8 @@
 These are the playbooks I run in my personal lab.
 
 <p align="center">
-  <img width="302" height="403" title="My Home Lab" src="static/home-lab.jpeg"><br>
-  <b>Ansible Links</b><br>
+  <img width="454" height="605" title="My Home Lab" src="static/home-lab.jpeg"><br>
+  <b>Early setup of my lab</b><br>
 </p>
 
 ## Requirements
