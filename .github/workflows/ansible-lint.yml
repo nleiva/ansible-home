@@ -22,4 +22,5 @@ jobs:
         #  - 'Commands should not change things if nothing needs doing' [301]
         #  - 'Git checkouts must contain explicit version' [401]
         #  - 'Package installs should not use latest' [403]
-        args: "-x 208,301,401,403"
+        #  - 'referenced missing file in ...' [E505]
+        args: "-x 208,301,401,403,505"
