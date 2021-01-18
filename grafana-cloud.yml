@@ -1,0 +1,19 @@
+# ansible-playbook grafana-cloud.yml --ask-become-pass -v
+
+- name: Run Grafana Cloud agent
+  hosts: host
+  gather_facts: yes
+
+  tasks:
+    - name: Include secret vars
+      include_vars: secret/vars.yml
+
+    - name: Install agent
+      include_role:
+        name: grafana_agent
+      vars:
+        ansible_become: yes
+
+    - name: Finishing debug message
+      debug:
+        msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

@@ -25,6 +25,8 @@ ansible-playbook setup.yml --ask-become-pass -v
 
 #### Dependencies
 
+The role names will be according to the [requirements.yml](roles/requirements.yml) file definition.
+
 ```bash
 ansible-galaxy role install -r roles/requirements.yml
 ```
@@ -44,3 +46,19 @@ ansible-playbook pi-hole.yml --ask-become-pass -v --tags whitelist
 ```
 
 [Block lists](https://firebog.net/) can be added via the [GUI](https://docs.pi-hole.net/database/gravity/example/).
+
+### 3. Cloud monitoring with Grafana Agent
+
+Install [Grafana Cloud Agent](https://github.com/grafana/agent) in a RHEL/Debian host using [grafana_agent](https://galaxy.ansible.com/nleiva/grafana_agent)'s role.
+
+```bash
+ansible-playbook grafana-cloud.yml --ask-become-pass -v
+```
+
+#### Dependencies
+
+The role names will be according to the [requirements.yml](roles/requirements.yml) file definition.
+
+```bash
+ansible-galaxy role install -r roles/requirements.yml
+```

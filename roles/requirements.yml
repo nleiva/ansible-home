@@ -2,3 +2,6 @@
 # From Galaxy
 - src: geerlingguy.repo-epel
   name: repo-epel
+
+- src: nleiva.grafana_agent
+  name: grafana_agent
