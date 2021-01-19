@@ -62,3 +62,20 @@ The role names will be according to the [requirements.yml](roles/requirements.ym
 ```bash
 ansible-galaxy role install -r roles/requirements.yml
 ```
+
+## HW details
+
+<p align="center">
+  <img width="605" height="454" title="My Home Lab v2" src="static/lab_rack.jpeg"><br>
+  <b>Second iteration of my lab</b><br>
+</p>
+
+
+- [6U Wall Mount Rack Cabinet Enclosure](https://smile.amazon.com/gp/product/B01K1JJHTO)
+- [Cantilever Server Shelf Rack Mount 19 Inch 1U](https://smile.amazon.com/gp/product/B008LUW3ZG)
+- [Intel® NUC Kit NUC8i5BEH](https://www.intel.com/content/www/us/en/products/boards-kits/nuc/kits/nuc8i5beh.html)
+- [Raspberry Pi 4 Model B](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
+- [Raspberry Pi 3 Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)
+- [Raspberry Pi Cluster Case 6-Layers](https://smile.amazon.com/gp/product/B07K72STFB)
+- [5-Pack Snagless Short Cat6 Ethernet Cable](https://smile.amazon.com/gp/product/B00C2DZ85U)
+- [TP-Link Litewave 8 Port Gigabit Ethernet Switch](https://smile.amazon.com/gp/product/B086384H7C)
