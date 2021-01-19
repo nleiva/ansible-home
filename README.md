@@ -79,3 +79,4 @@ ansible-galaxy role install -r roles/requirements.yml
 - [Raspberry Pi Cluster Case 6-Layers](https://smile.amazon.com/gp/product/B07K72STFB)
 - [5-Pack Snagless Short Cat6 Ethernet Cable](https://smile.amazon.com/gp/product/B00C2DZ85U)
 - [TP-Link Litewave 8 Port Gigabit Ethernet Switch](https://smile.amazon.com/gp/product/B086384H7C)
+- [CyberPower LE850G UPS Battery Backup](https://www.costco.com/cyberpower-le850g-ups-battery-backup-with-surge-protection.product.100519070.html)
