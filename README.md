@@ -11,7 +11,7 @@ These are the playbooks I run in my personal lab.
 
 ## Requirements
 
-` ssh-copy-id` to every host before running these playbooks. 
+`ssh-copy-id` to every host before running these playbooks. 
 
 ## Playbooks
 
@@ -55,12 +55,23 @@ Install [Grafana Cloud Agent](https://github.com/grafana/agent) in a RHEL/Debian
 ansible-playbook grafana-cloud.yml --ask-become-pass -v
 ```
 
-#### Dependencies
+### 4. Initial setup for a new machine
 
-The role names will be according to the [requirements.yml](roles/requirements.yml) file definition.
+Creates my user (assuming I can ssh as root) and adds my SSH public key to the authorized users (instead of `ssh-copy-id`). 
+Registers the system if it's RHEL.
+
 
 ```bash
-ansible-galaxy role install -r roles/requirements.yml
+ansible-playbook initial-setup.yml --ask-become-pass --ask-vault-pass
+```
+
+### 5. Install RH Satellite (WIP)
+
+Installs RH Satellite (Work in Progress)
+
+
+```bash
+ansible-playbook install-satellite.yml --ask-become-pass --ask-vault-pass
 ```
 
 ## HW details

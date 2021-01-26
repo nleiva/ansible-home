@@ -1,3 +1,10 @@
+# RHEL 7 bug? https://bugzilla.redhat.com/show_bug.cgi?id=1501193#c14
+- name: Restore restore the SELinux security context of /etc/machine-info 
+  command: restorecon /etc/machine-info 
+  when:
+   - ansible_distribution == "RedHat"
+   - ansible_distribution_major_version == "7"
+
 - name: Set a hostname
   hostname:
     name: "{{ inventory_hostname }}"

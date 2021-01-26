@@ -1,16 +1,24 @@
-# ansible-playbook grafana-cloud.yml --ask-become-pass --ask-vault-pass
+# ansible-playbook install-satellite.yml --ask-become-pass --ask-vault-pass
 
-- name: Run Grafana Cloud agent
+- name: Install Satellite
   hosts: rhel-7*
   gather_facts: yes
+  vars:
+    first_time: true
 
   tasks:
     - name: Include secret vars
       include_vars: secret/vars-enc.yml
 
-    - name: Install agent
+    - name: Run Satellite Role
       include_role:
-        name: grafana_agent
+        name: satellite
+      vars:
+        ansible_become: yes
+
+    - name: Update Firewall rules
+      include_role:
+        name: firewall_rules
       vars:
         ansible_become: yes
 

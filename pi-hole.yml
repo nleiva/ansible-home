@@ -2,7 +2,7 @@
 # Update whilelist rules:  ansible-playbook pi-hole.yml --ask-become-pass -v --tags whitelist
 
 - name: Install Pi-hole
-  hosts: pi3*
+  hosts: pi5*
   gather_facts: yes
 
   tasks:

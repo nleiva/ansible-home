@@ -1,16 +1,19 @@
-# ansible-playbook grafana-cloud.yml --ask-become-pass --ask-vault-pass
+# ansible-playbook initial-setup.yml --ask-become-pass --ask-vault-pass
 
-- name: Run Grafana Cloud agent
+- name: Setup my user account
   hosts: rhel-7*
   gather_facts: yes
+  vars_files: 
+   - secret/vars-enc.yml
+  vars:
+    ansible_user: root
+    ansible_password: "{{ my_password }}"
+    my_user: nleiva
 
   tasks:
-    - name: Include secret vars
-      include_vars: secret/vars-enc.yml
-
-    - name: Install agent
+    - name: Initial setup
       include_role:
-        name: grafana_agent
+        name: initial_setup
       vars:
         ansible_become: yes
 

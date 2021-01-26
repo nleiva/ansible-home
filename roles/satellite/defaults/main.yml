@@ -1,0 +1,17 @@
+---
+satellite_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-satellite-6.8-rpms
+  - rhel-7-server-satellite-maintenance-6-rpms
+  - rhel-server-rhscl-7-rpms
+  - rhel-7-server-ansible-2.9-rpms
+  - rhel-7-server-rh-common-rpms
+
+satellite_deployment_installer_cmd: "/usr/sbin/satellite-installer
+  --scenario satellite"
+
+satellite_deployment_answers:
+  "foreman-initial-organization": "{{ satellite_deployment_organization | default('HomeLab') }}"
+  "foreman-initial-location": "{{ satellite_deployment_location | default('Shadow Moses') }}"
+  "foreman-initial-admin-username": "{{ satellite_deployment_admin_username | default('admin') }}"
+  "foreman-initial-admin-password": "{{ satellite_deployment_admin_password | default('redhat') }}"
