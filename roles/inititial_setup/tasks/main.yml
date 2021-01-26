@@ -1,0 +1,15 @@
+- name: Create user
+  user:
+    name: "{{ my_user }}"
+    password: "{{ my_password | password_hash('sha512') }}"
+    shell: /bin/bash
+    groups: wheel
+    append: yes
+
+- name: Set authorized key taken from file
+  authorized_key:
+    user: "{{ my_user }}"
+    state: present
+    key: "{{ lookup('file', my_path) }}"
+  vars:
+    my_path: "/home/{{ my_user }}/.ssh/id_rsa.pub"

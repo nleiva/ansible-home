@@ -10,7 +10,9 @@
   authorized_key:
     user: "{{ my_user }}"
     state: present
-    key: "{{ lookup('file', '/home/{{ my_user }}/.ssh/id_rsa.pub') }}"
+    key: "{{ lookup('file', my_path ) }}"
+  vars:
+    my_path: "/home/{{ my_user }}/.ssh/id_rsa.pub"
 
 - name: Register with user/password and auto-subscribe to available content.
   redhat_subscription:
