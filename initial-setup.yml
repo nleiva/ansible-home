@@ -3,7 +3,7 @@
 - name: Setup my user account
   hosts: rhel-7*
   gather_facts: yes
-  vars_files: 
+  vars_files:
    - secret/vars-enc.yml
   vars:
     ansible_user: root

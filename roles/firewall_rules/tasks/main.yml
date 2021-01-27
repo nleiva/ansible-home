@@ -5,7 +5,7 @@
         service: cockpit
         permanent: yes
         state: enabled
-  when: 
+  when:
     - ansible_local['app']['main']['cockpit'] is defined
     - not (ansible_distribution == "RedHat" and ansible_distribution_major_version == "7")
 
@@ -16,7 +16,7 @@
         port: 9090/tcp
         permanent: yes
         state: enabled
-  when: 
+  when:
    - ansible_local['app']['main']['cockpit'] is defined
    - ansible_distribution == "RedHat" and ansible_distribution_major_version == "7"
 
