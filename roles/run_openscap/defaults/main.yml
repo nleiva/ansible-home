@@ -1,0 +1,5 @@
+---
+
+openscap_pkgs:
+  - openscap-scanner
+  - scap-security-guide

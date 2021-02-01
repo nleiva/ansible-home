@@ -1,0 +1,10 @@
+- name: Set a hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Inject hostname to hosts file
+  blockinfile:
+    path: /etc/hosts
+    block: "{{ hostname_inject_hosts_ip_address }} {{ inventory_hostname }} {{ hostname_aliases | join(' ') }}"
+    state: present
+  when: hostname_inject_hosts_files

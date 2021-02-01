@@ -67,11 +67,21 @@ ansible-playbook initial-setup.yml --ask-become-pass --ask-vault-pass
 
 ### 5. Install RH Satellite (WIP)
 
-Installs RH Satellite (Work in Progress)
+Installs RH Satellite 6.7 (Work in Progress) in RHEL 7.
 
 
 ```bash
 ansible-playbook install-satellite.yml --ask-become-pass --ask-vault-pass
+```
+
+### 6. Run OpenSCAP
+
+Perform compliance and vulnerability scanning on RHEL 8 with OpenSCAP. 
+[] TODO: Profile selection: STIG, PCI-DSS, or HIPAA
+
+
+```bash
+ansible-playbook openscap.yml --ask-become-pass
 ```
 
 ## HW details

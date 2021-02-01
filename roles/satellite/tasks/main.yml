@@ -46,14 +46,17 @@
   setup:
     filter: ansible_local
 
-- name: Install Satellite
+- name: Update Firewalld
+  include_role:
+    name: firewall_rules
+
+- name: Install Satellite and sos
   yum:
-    name: satellite
-    state: present
-  register: package_check
-  until: package_check is not failed
-  retries: 4
-  delay: 5
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - satellite
+    - sos
 
 - name: Update satellite-installer command
   set_fact:
@@ -67,3 +70,8 @@
   changed_when: 'command_output.rc == 0'
   async: 3600
   poll: 15
+
+- name: Make sure tomcat is running
+  systemd:
+    state: started
+    name: tomcat

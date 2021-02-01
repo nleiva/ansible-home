@@ -1,0 +1,43 @@
+- name: Make sure openscap-scanner and scap-security guide are installed
+  package:
+    name: "{{ openscap_pkgs }}"
+    state: present
+
+- name: Make sure httpd is installed to display report
+  package:
+    name: httpd
+    state: present
+
+- name: Check if SCAP Security Guide (SSG) profile is available
+  stat:
+    path: "{{ ssg_schema }}"
+
+- name: Create HTML report
+  command: "oscap xccdf eval --fetch-remote-resources --profile {{ ssg_profile | default ('xccdf_org.ssgproject.content_profile_pci-dss') }} --results report.xml --report index.html {{ ssg_schema }}"
+  register: command_result
+  failed_when: "'Error' in command_result.stderr"
+
+- name: Create directory if it does not exist
+  become: true
+  file:
+    path: "{{ file_path }}"
+    state: directory
+
+- name: Move files into httpd
+  become: true
+  copy:
+    src: ./{{ item }}
+    dest: "{{ file_path }}/{{ item }}"
+    remote_src: true
+  loop:
+    - report.xml
+    - index.html
+
+- name: Provide link to report
+  debug:
+    msg: "{{ inventory_hostname }} has completed running OpenSCAP Profile {{ ssg_profile|default ('xccdf_org.ssgproject.content_profile_pci-dss') }} and can be viewed at http://{{ ansible_host }}/openscap"
+
+- name: Make sure httpd is running to display report
+  systemd:
+    name: httpd
+    state: started
