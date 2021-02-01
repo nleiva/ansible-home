@@ -77,7 +77,7 @@ ansible-playbook install-satellite.yml --ask-become-pass --ask-vault-pass
 ### 6. Run OpenSCAP
 
 Perform compliance and vulnerability scanning on RHEL 8 with OpenSCAP. 
-[] TODO: Profile selection: STIG, PCI-DSS, or HIPAA
+- [] TODO: Profile selection: STIG, PCI-DSS, or HIPAA
 
 
 ```bash
