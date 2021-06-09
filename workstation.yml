@@ -47,8 +47,8 @@
   tasks:
     - name: Ensure SELinux Enforcing
       selinux:
-      policy: targeted
-      state: enforcing
+        policy: targeted
+        state: enforcing
 
     - name: Enable container_manage_cgroup for running systemd in podman containers
       seboolean:
