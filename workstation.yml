@@ -1,0 +1,100 @@
+# ansible-playbook workstation.yml --ask-become-pass -v
+# Inspired by https://github.com/maxamillion/maxible
+
+- name: Setup Lab machines
+  hosts: localhost
+  gather_facts: yes
+  vars:
+    non_root_user: nleiva
+    hostname: x1
+    rpmfusion_free: yes
+    rpmfusion_nonfree: no
+    desktop_environment: gnome
+    common_software:
+      - google-chrome-stable
+      - code
+      - git
+      - glances
+      - golang
+      - htop
+      - firewalld
+      - python3
+      - podman
+      - tree
+      - wget
+
+    base_software:
+      RedHat:
+        - bind-utils
+        - python3-devel
+        - golang-x-tools-gopls
+        - NetworkManager-openvpn
+        - earlyoom
+
+  pre_tasks:
+    - name: Starting debug message
+      debug:
+        msg: "It will start working on {{ inventory_hostname }}:{{ ansible_host }}"
+
+  roles:
+    - role: repo_code
+      become: yes
+    - role: install_pkgs
+      become: yes
+    - role: basic_settings
+      become: yes
+
+  tasks:
+    - name: Ensure SELinux Enforcing
+      selinux:
+      policy: targeted
+      state: enforcing
+
+    - name: Enable container_manage_cgroup for running systemd in podman containers
+      seboolean:
+        name: container_manage_cgroup
+        state: true
+        persistent: true
+
+    - name: Set powersave when configuring a laptop
+      when: ansible_form_factor in mobile_form_factors
+      block:
+        - name: Ensure powertop service enabled
+          service:
+            name: powertop
+            enabled: true
+
+        - name: Ensure powertop service started (only when not plugged in)
+          service:
+            name: powertop
+            state: started
+          when: "'discharging' in lookup('pipe', 'upower -i /org/freedesktop/UPower/devices/battery_BAT0')"
+
+    - name: Apply iwlwifi settings
+      copy:
+        src: files/iwlwifi.conf
+        dest: /etc/modprobe.d/iwlwifi.conf
+
+    - name: Set container registry settings
+      copy:
+        src: files/registries.conf
+        dest: /etc/containers/registries.conf
+
+    - name: Enable journald persistent storage
+      file:
+        path: /var/log/journal
+        state: directory
+
+    - name: Disable Wayland
+      become: true
+      lineinfile:
+        path: /etc/gdm/custom.conf
+        regexp: '#WaylandEnable=false'
+        line: 'WaylandEnable=false'
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Finishing debug message
+      debug:
+        msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

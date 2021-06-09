@@ -1,6 +1,6 @@
 - name: Set a hostname
   hostname:
-    name: "{{ inventory_hostname }}"
+    name: "{{ hostname }}"
 
 - name: Inject hostname to hosts file
   blockinfile:

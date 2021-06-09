@@ -14,3 +14,12 @@ base_software:
     - vim-runtime
   RedHat:
     - bind-utils
+
+desktop_environment: 'n/a'
+
+gnome:
+  - vinagre
+  - gnome-tweaks
+  - NetworkManager-openvpn-gnome
+  - gnome-shell-extension-windowsNavigator
+  - gnome-shell-extension-system-monitor-applet

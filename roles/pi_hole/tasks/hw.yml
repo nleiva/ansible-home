@@ -74,4 +74,3 @@
   command: python3 /tmp/whitelist/scripts/whitelist.py
   tags: whitelist
 
-

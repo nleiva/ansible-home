@@ -1,0 +1,8 @@
+---
+redhat-internal:
+  - oneplay-gstreamer-codecs-pack
+  - redhat-internal-openvpn-profiles
+  - redhat-internal-NetworkManager-openvpn-profiles
+  - redhat-internal-NetworkManager-openvpn-profiles-non-gnome
+  - redhat-internal-wireless-config
+  - redhat-internal-cert-install

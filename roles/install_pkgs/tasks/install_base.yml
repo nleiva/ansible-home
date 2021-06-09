@@ -14,3 +14,13 @@
   until: package_check is not failed
   retries: 4
   delay: 5
+
+- name: Install GNOME packages
+  package:
+    name: "{{ gnome }}"
+    state: present
+  register: package_check
+  until: package_check is not failed
+  retries: 4
+  delay: 5
+  when: desktop_environment == 'gnome'

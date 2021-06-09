@@ -1,4 +1,4 @@
-# hostname: "{{ ansible_fqdn }}"
+hostname: "{{ inventory_hostname }}"
 hostname_aliases: []
 hostname_inject_hosts_files: false
 hostname_inject_hosts_ip_address: "127.0.0.1"

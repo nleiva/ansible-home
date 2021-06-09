@@ -1,0 +1,14 @@
+- name: Setup CSB Repo
+  template:
+    src: rhel8-csb.repo.j2
+    dest: /etc/yum.repos.d/rhel8-csb.repo
+
+- name: Install RED HAT packages
+  package:
+    name: "{{ redhat-internal }}"
+    state: present
+  register: package_check
+  until: package_check is not failed
+  retries: 4
+  delay: 5
+  when: desktop_environment == 'gnome'

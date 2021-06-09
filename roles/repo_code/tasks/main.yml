@@ -1,0 +1,7 @@
+- name: Add Code Server Repo
+  yum_repository:
+    name: VS Code
+    description: Visual Studio Code repo
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    gpgcheck: yes
