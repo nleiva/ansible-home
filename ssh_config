@@ -3,3 +3,14 @@ Host host1.lab.home
   GSSAPIAuthentication no
 Host host2.lab.home
   GSSAPIAuthentication no
+Host *.cisco.com
+  PreferredAuthentications password
+Host *.amazonaws.com
+  User ec2-user
+  GSSAPIAuthentication no
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  UserKnownHostsFile ~/.ssh/aws_known_hosts
+  IdentityFile ~/.ssh/ansible-private.pem
+  ServerAliveInterval 120
+  TCPKeepAlive yes

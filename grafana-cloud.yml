@@ -1,7 +1,7 @@
 # ansible-playbook grafana-cloud.yml --ask-become-pass --ask-vault-pass
 
 - name: Run Grafana Cloud agent
-  hosts: rhel-7*
+  hosts: host1*
   gather_facts: yes
 
   tasks:
