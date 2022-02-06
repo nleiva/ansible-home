@@ -6,4 +6,4 @@
 
 - src: nleiva.grafana_agent
   name: grafana_agent
-  version: 0.3.5
+  version: 0.3.6

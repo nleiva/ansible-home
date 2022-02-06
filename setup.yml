@@ -1,7 +1,7 @@
-# ansible-playbook setup.yml --ask-become-pass -v
+# ansible-playbook setup.yml -v
 
 - name: Setup Lab machines
-  hosts: host
+  hosts: pi4*
   gather_facts: yes
 
   pre_tasks:
