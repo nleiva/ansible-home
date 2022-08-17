@@ -1,9 +1,9 @@
 - name: Clone a dot files repo
-  git:
+  ansible.builtin.git:
     repo: "{{ dot_repo }}"
     dest: "{{ dot_files_dst }}"
-    force: yes
+    force: true
 
 # https://github.com/nleiva/dotfiles#install
 - name: Install dot files
-  command: "{{ dot_files_dst }}/install.sh"
+  ansible.builtin.command: "{{ dot_files_dst }}/install.sh"

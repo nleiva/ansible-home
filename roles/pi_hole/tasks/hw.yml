@@ -1,45 +1,42 @@
 - name: Creating Pi-hole configuration folder
-  file:
+  ansible.builtin.file:
     path: /etc/pihole
     state: directory
-    recurse: yes
+    recurse: true
     mode: 0755
 
 - name: Create Pi-hole configuration
-  template:
+  ansible.builtin.template:
     src: setupVars.conf.j2
     dest: /etc/pihole/setupVars.conf
     mode: 0644
-    force: yes
-  # Password is double SHA256
-  # https://discourse.pi-hole.net/t/what-is-setupvars-conf-and-how-do-i-use-it/3533/6
-  # ⇨  echo -n <password> | sha256sum | awk '{printf "%s",$1 }' | sha256sum
+    force: true
   vars:
     - pihole_password: "{{ lookup('env', 'PIHOLE_PASSWORD') | default('113459eb7bb31bddee85ade5230d6ad5d8b2fb52879e00a84ff6ae1067a210d3', true) }}"
 
 - name: Create Pi-hole local DNS records
-  template:
+  ansible.builtin.template:
     src: custom.list.j2
     dest: /etc/pihole/custom.list
     mode: 0644
-    force: no
+    force: false
 
 - name: Create directory for ansible custom facts
-  file:
+  ansible.builtin.file:
     state: directory
-    recurse: yes
+    recurse: true
     path: /etc/ansible/facts.d
     mode: 0755
 
 - name: Ensure ansible custom facts file exists
-  copy:
+  ansible.builtin.copy:
     content: "[main]"
     dest: /etc/ansible/facts.d/app.fact
-    force: no
+    force: false
     mode: 0644
 
 - name: Add dns to custom installed apps
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/ansible/facts.d/app.fact
     regexp: '^dns='
     line: 'dns=true'
@@ -47,30 +44,29 @@
     mode: '0644'
 
 - name: Re-read facts after adding custom fact
-  setup:
+  ansible.builtin.setup:
     filter: ansible_local
 
 - name: Download Pi-hole installer
-  get_url:
-      url: https://install.pi-hole.net
-      dest: ~/install-pihole.sh
-      mode: 0740
+  ansible.builtin.get_url:
+    url: https://install.pi-hole.net
+    dest: ~/install-pihole.sh
+    mode: 0740
 
 - name: Install Pi-hole
-  command: ~/install-pihole.sh --unattended
+  ansible.builtin.command: ~/install-pihole.sh --unattended
   register: pihole_output
   until: pihole_output is not failed
   retries: 1
   delay: 5
 
 - name: Clone whitelist repo
-  git:
+  ansible.builtin.git:
     repo: https://github.com/anudeepND/whitelist.git
     dest: /tmp/whitelist
-    force: yes
+    force: true
   tags: whitelist
 
 - name: Add commonly white listed websites
-  command: python3 /tmp/whitelist/scripts/whitelist.py
+  ansible.builtin.command: python3 /tmp/whitelist/scripts/whitelist.py
   tags: whitelist
-

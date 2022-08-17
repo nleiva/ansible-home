@@ -1,4 +1,2 @@
----
-
 dot_repo: https://github.com/nleiva/dotfiles.git
 dot_files_dst: ~/.dotfiles

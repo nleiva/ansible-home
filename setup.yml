@@ -2,36 +2,37 @@
 
 - name: Setup Lab machines
   hosts: pi4*
-  gather_facts: yes
+  gather_facts: true
 
   pre_tasks:
     - name: Starting debug message
-      debug:
+      ansible.builtin.debug:
         msg: "It will start working on {{ inventory_hostname }}:{{ ansible_host }}"
 
   roles:
-    - role: update_pkgs
-      become: yes
+    - name: update_pkgs
+      become: true
     - role: repo-epel
-      become: yes
+      become: true
       when:
         - ansible_facts['distribution'] in ['CentOS', 'RedHat']
         - not (ansible_distribution == "RedHat" and ansible_distribution_major_version == "7")
     - role: repo_backports
-      become: yes
+      become: true
       when: ansible_facts['distribution'] in ['Debian']
     - role: install_pkgs
-      become: yes
+      become: true
     - role: basic_settings
-      become: yes
+      become: true
     - role: custom_facts
-      become: yes
+      become: true
     - role: dot_files
     - role: firewall_rules
-      become: yes
-    - role: test_internet
+      become: true
+
+    - name: test_internet
 
   tasks:
     - name: Finishing debug message
-      debug:
+      ansible.builtin.debug:
         msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

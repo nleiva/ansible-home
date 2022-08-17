@@ -1,0 +1,21 @@
+# ansible-playbook update.yml -v
+
+- name: Update Lab machines
+  hosts: lab
+  gather_facts: true
+
+  pre_tasks:
+    - name: Starting debug message
+      ansible.builtin.debug:
+        msg: "It will start working on {{ inventory_hostname }}:{{ ansible_host }}"
+
+  roles:
+    - name: update_pkgs
+      become: true
+
+    - name: test_internet
+
+  tasks:
+    - name: Finishing debug message
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

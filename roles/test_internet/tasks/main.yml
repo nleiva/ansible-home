@@ -1,5 +1,5 @@
 - name: Test reachability to {{ ip_list }}
-  uri:
+  ansible.builtin.uri:
     url: "{{ ip_list }}"
     follow_redirects: none
     method: GET
@@ -9,7 +9,7 @@
   delay: 5
 
 - name: Display reachability info
-  debug:
+  ansible.builtin.debug:
     msg:
       - "Public IP address: {{ result.json.ip }}"
-      - "From {{ result.json.asn.name }} (ASN {{ result.json.asn.code }}) in {{ result.json.countrycode }}"
+      - "From {{ result.json.asn.name | default('N/A') }} (ASN {{ result.json.asn.code | default('N/A') }}) in {{ result.json.countrycode }}"

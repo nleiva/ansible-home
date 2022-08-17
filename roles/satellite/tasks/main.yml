@@ -2,40 +2,40 @@
 # tasks file for linux-install-satellite
 
 - name: Register as user {{ subscription_manager_username }} and subscribe to Satellite Infrastructure Pool with ID {{ satellite_pool_id }}
-  redhat_subscription:
+  ansible.builtin.redhat_subscription:
     state: present
     username: "{{ subscription_manager_username }}"
     password: "{{ subscription_manager_password }}"
     pool_ids: "{{ satellite_pool_id }}"
 
 - name: Disable all RHSM repositories
-  rhsm_repository:
+  ansible.builtin.rhsm_repository:
     name: '*'
     state: disabled
   when: first_time
 
 - name: Enable Satellite repos
-  rhsm_repository:
+  ansible.builtin.rhsm_repository:
     name: "{{ item }}"
     state: enabled
   loop: "{{ satellite_repos }}"
 
 - name: Create directory for ansible custom facts
-  file:
+  ansible.builtin.file:
     state: directory
-    recurse: yes
+    recurse: true
     path: /etc/ansible/facts.d
     mode: 0755
 
 - name: Ensure ansible custom facts file exists
-  copy:
+  ansible.builtin.copy:
     content: "[main]"
     dest: /etc/ansible/facts.d/app.fact
-    force: no
+    force: false
     mode: 0644
 
 - name: Add Satellite to custom installed apps
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/ansible/facts.d/app.fact
     regexp: '^satellite='
     line: 'satellite=true'
@@ -43,35 +43,35 @@
     mode: '0644'
 
 - name: Re-read facts after adding custom fact
-  setup:
+  ansible.builtin.setup:
     filter: ansible_local
 
 - name: Update Firewalld
-  include_role:
+  ansible.builtin.include_role:
     name: firewall_rules
 
 - name: Install Satellite and sos
-  yum:
+  ansible.builtin.yum:
     name: "{{ packages }}"
   vars:
     packages:
-    - satellite
-    - sos
+      - satellite
+      - sos
 
 - name: Update satellite-installer command
-  set_fact:
+  ansible.builtin.set_fact:
     satellite_deployment_installer_cmd: "{{ satellite_deployment_installer_cmd
       }} --{{ item.key }}='{{ item.value }}'"
   with_dict: "{{ satellite_deployment_answers }}"
 
 - name: Satellite installation
-  command: "{{ satellite_deployment_installer_cmd }}"
+  ansible.builtin.command: "{{ satellite_deployment_installer_cmd }}"
   register: command_output
   changed_when: 'command_output.rc == 0'
   async: 3600
   poll: 15
 
 - name: Make sure tomcat is running
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: tomcat

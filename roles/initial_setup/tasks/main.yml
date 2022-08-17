@@ -1,13 +1,13 @@
 - name: Create user
-  user:
+  ansible.builtin.user:
     name: "{{ my_user }}"
     password: "{{ my_password | password_hash('sha512') }}"
     shell: /bin/bash
     groups: wheel
-    append: yes
+    append: true
 
 - name: Set authorized key taken from file
-  authorized_key:
+  ansible.builtin.authorized_key:
     user: "{{ my_user }}"
     state: present
     key: "{{ lookup('file', my_path ) }}"
@@ -15,7 +15,7 @@
     my_path: "/home/{{ my_user }}/.ssh/id_rsa.pub"
 
 - name: Register with user/password and auto-subscribe to available content.
-  redhat_subscription:
+  ansible.builtin.redhat_subscription:
     state: present
     username: "{{ subscription_manager_username }}"
     password: "{{ subscription_manager_password }}"

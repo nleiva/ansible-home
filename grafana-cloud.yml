@@ -1,19 +1,19 @@
 # ansible-playbook grafana-cloud.yml --ask-vault-pass
 
 - name: Run Grafana Cloud agent
-  hosts: pi4*
-  gather_facts: yes
+  hosts: rhel
+  gather_facts: true
 
   tasks:
     - name: Include secret vars
-      include_vars: secret/vars-enc.yml
+      ansible.builtin.include_vars: secret/vars-enc.yml
 
     - name: Install agent
-      include_role:
+      ansible.builtin.include_role:
         name: grafana_agent
       vars:
-        ansible_become: yes
+        ansible_become: true
 
     - name: Finishing debug message
-      debug:
+      ansible.builtin.debug:
         msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

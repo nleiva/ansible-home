@@ -2,13 +2,13 @@
 - name: Add buster-backports to a Raspberry Pi
   block:
     - name: Add key
-      apt_key:
+      ansible.builtin.apt_key:
         url: https://ftp-master.debian.org/keys/archive-key-10.asc
         state: present
 
     - name: Add backports repository
-      apt_repository:
+      ansible.builtin.apt_repository:
         repo: "deb https://deb.debian.org/debian {{ ansible_distribution_release }}-backports main"
         state: present
-        update_cache: yes
+        update_cache: true
   when: ansible_distribution_release == "buster"

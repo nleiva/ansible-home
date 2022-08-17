@@ -3,12 +3,12 @@
 
 - name: Setup Lab machines
   hosts: localhost
-  gather_facts: yes
+  gather_facts: true
   vars:
     non_root_user: nleiva
     hostname: x1
-    rpmfusion_free: yes
-    rpmfusion_nonfree: no
+    rpmfusion_free: true
+    rpmfusion_nonfree: false
     desktop_environment: gnome
     common_software:
       - google-chrome-stable
@@ -33,25 +33,25 @@
 
   pre_tasks:
     - name: Starting debug message
-      debug:
+      ansible.builtin.debug:
         msg: "It will start working on {{ inventory_hostname }}:{{ ansible_host }}"
 
   roles:
     - role: repo_code
-      become: yes
+      become: true
     - role: install_pkgs
-      become: yes
+      become: true
     - role: basic_settings
-      become: yes
+      become: true
 
   tasks:
     - name: Ensure SELinux Enforcing
-      selinux:
+      ansible.builtin.selinux:
         policy: targeted
         state: enforcing
 
     - name: Enable container_manage_cgroup for running systemd in podman containers
-      seboolean:
+      ansible.builtin.seboolean:
         name: container_manage_cgroup
         state: true
         persistent: true
@@ -60,34 +60,34 @@
       when: ansible_form_factor in mobile_form_factors
       block:
         - name: Ensure powertop service enabled
-          service:
+          ansible.builtin.service:
             name: powertop
             enabled: true
 
         - name: Ensure powertop service started (only when not plugged in)
-          service:
+          ansible.builtin.service:
             name: powertop
             state: started
           when: "'discharging' in lookup('pipe', 'upower -i /org/freedesktop/UPower/devices/battery_BAT0')"
 
     - name: Apply iwlwifi settings
-      copy:
+      ansible.builtin.copy:
         src: files/iwlwifi.conf
         dest: /etc/modprobe.d/iwlwifi.conf
 
     - name: Set container registry settings
-      copy:
+      ansible.builtin.copy:
         src: files/registries.conf
         dest: /etc/containers/registries.conf
 
     - name: Enable journald persistent storage
-      file:
+      ansible.builtin.file:
         path: /var/log/journal
         state: directory
 
     - name: Disable Wayland
       become: true
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/gdm/custom.conf
         regexp: '#WaylandEnable=false'
         line: 'WaylandEnable=false'
@@ -96,5 +96,5 @@
         mode: '0644'
 
     - name: Finishing debug message
-      debug:
+      ansible.builtin.debug:
         msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

@@ -1,8 +1,8 @@
 # ansible-playbook install-satellite.yml --ask-become-pass --ask-vault-pass
 
 - name: Install Satellite
-  hosts: rhel-7*
-  gather_facts: yes
+  hosts: rhel-7
+  gather_facts: true
   vars:
     first_time: true
 
@@ -11,11 +11,11 @@
       include_vars: secret/vars-enc.yml
 
     - name: Run Satellite Role
-      include_role:
+      ansible.builtin.include_role:
         name: satellite
       vars:
-        ansible_become: yes
+        ansible_become: true
 
     - name: Finishing debug message
-      debug:
+      ansible.builtin.debug:
         msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

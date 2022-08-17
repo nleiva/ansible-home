@@ -1,4 +1,4 @@
 - name: Update all packages
-  package:
+  ansible.builtin.package:
     name: '*'
     state: latest

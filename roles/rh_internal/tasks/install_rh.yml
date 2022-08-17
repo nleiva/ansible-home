@@ -1,10 +1,10 @@
 - name: Setup CSB Repo
-  template:
+  ansible.builtin.template:
     src: rhel8-csb.repo.j2
     dest: /etc/yum.repos.d/rhel8-csb.repo
 
 - name: Install RED HAT packages
-  package:
+  ansible.builtin.package:
     name: "{{ redhat-internal }}"
     state: present
   register: package_check

@@ -1,0 +1,5 @@
+skip_list:  # or 'skip_list' to silence them completely
+  - package-latest  # Package installs should not use latest.
+  - experimental
+  - git-latest
+  - no-changed-when

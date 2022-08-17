@@ -1,9 +1,9 @@
 - name: Enable Cockpit port(s)
   block:
     - name: Add Cockpit to Firewalld to system-default(public) [not RHEL7]
-      firewalld:
+      ansible.builtin.firewalld:
         service: cockpit
-        permanent: yes
+        permanent: true
         state: enabled
   when:
     - ansible_local['app']['main']['cockpit'] is defined
@@ -12,81 +12,81 @@
 - name: Enable Cockpit port(s) for RHEL7
   block:
     - name: Add Cockpit to Firewalld to system-default(public) [RHEL7]
-      firewalld:
+      ansible.builtin.firewalld:
         port: 9090/tcp
-        permanent: yes
+        permanent: true
         state: enabled
   when:
-   - ansible_local['app']['main']['cockpit'] is defined
-   - ansible_distribution == "RedHat" and ansible_distribution_major_version == "7"
+    - ansible_local['app']['main']['cockpit'] is defined
+    - ansible_distribution == "RedHat" and ansible_distribution_major_version == "7"
 
 - name: Enable Satellite ports
   block:
     - name: Add Satellite to Firewalld to system-default(public)
-      firewalld:
+      ansible.builtin.firewalld:
         service: RH-Satellite-6
-        permanent: yes
+        permanent: true
         state: enabled
   when: ansible_local['app']['main']['satellite'] is defined
 
 - name: Enable Pi-Hole ports
   block:
     - name: Add HTTP to Firewalld to system-default(public)
-      firewalld:
+      ansible.builtin.firewalld:
         service: http
-        permanent: yes
+        permanent: true
         state: enabled
 
     - name: Add DNS to Firewalld to system-default(public)
-      firewalld:
+      ansible.builtin.firewalld:
         service: dns
-        permanent: yes
+        permanent: true
         state: enabled
 
     - name: Create ftl zone
-      firewalld:
+      ansible.builtin.firewalld:
         zone: ftl
-        permanent: yes
+        permanent: true
         state: present
 
     # You will have to reload firewalld after adding a zone that you wish to perform immediate actions on
     - name: reload service firewalld
-      systemd:
+      ansible.builtin.systemd:
         name: firewalld
         state: reloaded
 
     - name: Add lo interface to ftl zone
-      firewalld:
+      ansible.builtin.firewalld:
         zone: ftl
         interface: lo
-        permanent: yes
+        permanent: true
         state: enabled
 
     # FTL is Pi-hole API engine and uses port 4711 on the localhost interface.
     - name: All lo interface to ftl zone
-      firewalld:
+      ansible.builtin.firewalld:
         port: 4711/tcp
         zone: ftl
-        permanent: yes
+        permanent: true
         state: enabled
-        immediate: yes
+        immediate: true
 
     # # The DHCP server is an optional feature that requires additional ports.
     # - name: Add DHCP to Firewalld
-    #   firewalld:
+    #   ansible.builtin.firewalld:
     #     service: dhcp
-    #     permanent: yes
+    #     permanent: true
     #     state: enabled
 
     # # The DHCP server is an optional feature that requires additional ports.
     # - name: Add DHCPv6 to Firewalld
-    #   firewalld:
+    #   ansible.builtin.firewalld:
     #     service: dhcpv6
-    #     permanent: yes
+    #     permanent: true
     #     state: enabled
   when: ansible_local['app']['main']['dns'] is defined
 
 - name: reload service firewalld
-  systemd:
+  ansible.builtin.systemd:
     name: firewalld
     state: reloaded

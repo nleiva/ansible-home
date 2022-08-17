@@ -2,9 +2,9 @@
 
 - name: Setup my user account
   hosts: rhel-7*
-  gather_facts: yes
+  gather_facts: true
   vars_files:
-   - secret/vars-enc.yml
+    - secret/vars-enc.yml
   vars:
     ansible_user: root
     ansible_password: "{{ my_password }}"
@@ -12,11 +12,11 @@
 
   tasks:
     - name: Initial setup
-      include_role:
+      ansible.builtin.include_role:
         name: initial_setup
       vars:
-        ansible_become: yes
+        ansible_become: true
 
     - name: Finishing debug message
-      debug:
+      ansible.builtin.debug:
         msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

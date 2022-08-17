@@ -1,13 +1,13 @@
 # https://github.com/saltstack/salt/issues/55110#issuecomment-546735717
 - name: Fix iptables on Debian Buster
-  apt:
+  ansible.builtin.apt:
     name: iptables
     state: latest
     default_release: buster-backports
   when: ansible_distribution_release == "buster"
 
 - name: Install base packages
-  package:
+  ansible.builtin.package:
     name: "{{ base_software[ansible_distribution_file_variety] | union(common_software) }}"
     state: present
   register: package_check
@@ -16,7 +16,7 @@
   delay: 5
 
 - name: Install GNOME packages
-  package:
+  ansible.builtin.package:
     name: "{{ gnome }}"
     state: present
   register: package_check
