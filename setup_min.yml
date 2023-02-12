@@ -1,0 +1,26 @@
+# ansible-playbook setup_min.yml -v --ask-become-pass -v
+
+- name: Setup Lab machines
+  hosts: host3*
+  gather_facts: true
+
+  pre_tasks:
+    - name: Starting debug message
+      ansible.builtin.debug:
+        msg: "It will start working on {{ inventory_hostname }}:{{ ansible_host }}"
+
+  roles:
+    - name: update_pkgs
+      become: true
+    - role: install_pkgs
+      become: true
+    - role: custom_facts
+      become: true
+    - role: dot_files
+
+    - name: test_internet
+
+  tasks:
+    - name: Finishing debug message
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }}:{{ ansible_host }} running {{ ansible_distribution }} {{ ansible_distribution_version }} is ready"

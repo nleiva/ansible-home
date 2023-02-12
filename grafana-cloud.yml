@@ -10,7 +10,7 @@
 
     - name: Install agent
       ansible.builtin.include_role:
-        name: grafana_agent
+        name: nleiva.grafana_agent
       vars:
         ansible_become: true
 
