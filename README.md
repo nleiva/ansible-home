@@ -87,6 +87,7 @@ ansible-playbook openscap.yml --ask-become-pass
 
 ## HW details
 
+### 2nd generation
 <p align="center">
   <img width="605" height="454" title="My Home Lab v2" src="static/lab_rack.jpeg"><br>
   <b>Second iteration of my lab</b><br>
@@ -102,3 +103,16 @@ ansible-playbook openscap.yml --ask-become-pass
 - [5-Pack Snagless Short Cat6 Ethernet Cable](https://smile.amazon.com/gp/product/B00C2DZ85U)
 - [TP-Link Litewave 8 Port Gigabit Ethernet Switch](https://smile.amazon.com/gp/product/B086384H7C)
 - [CyberPower LE850G UPS Battery Backup](https://www.costco.com/cyberpower-le850g-ups-battery-backup-with-surge-protection.product.100519070.html)
+
+### 3rd generation
+<p align="center">
+  <img width="605" height="454" title="My Home Lab v3" src="static/lab3.jpg"><br>
+  <b>Third iteration of my lab</b><br>
+</p>
+
+- [Lenovo ThinkCentre M910Q Tiny Desktop Computer](https://www.amazon.com/gp/product/B08MMQH98H): Intel Core i7-6700T Upto 3.6GHz, 32GB RAM, 1TB NVMe SSD.
+- [Dell OptiPlex 3060 MFF](https://www.dellrefurbished.com/category/store-dt-ultra/desktops/ultra-small/1.html?model_f[]=OptiPlex%203060): Intel Core i5-8500T 2.10 GHz, 16GB RAM, 500GB HDD.
+- [Switch 8 PoE (60W)](https://store.ui.com/collections/unifi-network-switching/products/unifi-switch-8-60w)
+- [Switch Flex Mini](https://store.ui.com/collections/unifi-network-switching/products/usw-flex-mini)
+- [AC Infinity MULTIFAN S1](https://www.amazon.com/gp/product/B00G059G86)
+- [APC® 8-Outlet Uninterruptible Power Supply, 1000VA/600 Watts, BX1000M-LM60](https://www.officedepot.com/a/products/5182451/APC-8-Outlet-Uninterruptible-Power-Supply/)
